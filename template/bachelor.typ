@@ -1,4 +1,4 @@
-#import "/template.typ": (
+#import "/modern-npu-thesis/template.typ": (
   Assign, IfElseChain, Return, While, algorithm, capfig, capsubfig, captab, multicite, nwpu-thesis, 字号
 )
 
@@ -12,17 +12,17 @@
   abstract: [
     推荐系统可以缓解互联网信息过载问题，是目前被广泛应用的技术。传统推荐方法一般把推荐任务看成静态偏好预测或点击率预测问题，因此不太容易描述用户和系统之间连续交互的过程。针对虚拟电商推荐场景中的序列决策问题，本文以 Virtual Taobao 作为实验平台，在原始工作发布的预训练用户生成模型、反馈模型和离开模型基础上，封装符合 Gymnasium 接口的 VirtualTB-v0 强化学习实验环境，并利用深度强化学习方法将推荐过程建模为连续动作空间下的马尔可夫决策过程。
 
-    在方法设计部分，本文先说明状态、动作、回报和终止条件：状态由用户画像、上一轮反馈和当前页码组成，动作采用 27 维连续推荐向量，回报使用虚拟用户反馈中的点击数；随后，本文建立 Random、MLP-SL 和 LinUCB 三类传统对比方法，加入 PPO-SB3 和 DDPG-SB3 作为标准深度强化学习对照，并结合连续动作推荐任务中的状态尺度、动作范围和短会话反馈特点，设计 PPO-Rec 和 DDPG-Rec 两种推荐强化学习方法。
+    在方法设计部分，本文先说明状态、动作、回报和终止条件：状态由用户画像、上一轮反馈和当前页码组成，动作采用 27 维连续推荐向量，回报使用虚拟用户反馈中的点击数；随后，本文建立 Random、MLP-SL 和 LinUCB 三类传统对比方法，加入 PPO-SB3 和 DDPG-SB3 作为标准深度强化学习对照，并结合连续动作推荐任务中的状态尺度、动作范围和短会话反馈特点，构建 PPO-Rec 和 DDPG-Rec 两类推荐任务训练配置与策略实现。
 
-    实验在 seed=1、2、3 三个随机种子下进行。结果说明，传统基线方法在该连续动作推荐实验环境中效果有限，PPO-SB3 和 DDPG-SB3 通过环境交互可以获得一定提升，但平均 CTR 仍低于面向推荐任务改进后的方法。PPO-Rec 的最终 CTR 为 0.8670±0.0529，DDPG-Rec 的最终 CTR 为 0.8958±0.0064，在当前实验设置下高于传统基线和标准 SB3 对照。实验还说明，动作范数可以用来分析连续动作策略的行为，但不能单独当作推荐效果指标。本文结果说明，在 VirtualTB-v0 仿真实验环境中，结合连续动作推荐任务特点进行强化学习训练和策略实现改进，可以改善推荐策略表现。
+    实验在 seed=1、2、3 三个随机种子下进行。结果说明，传统基线方法在该连续动作推荐实验环境中效果有限，PPO-SB3 和 DDPG-SB3 通过环境交互可以获得一定提升，但平均 CTR 仍低于面向推荐任务改进后的方法。以三个随机种子的均值和种子间标准差统计，PPO-Rec 的最终 CTR 为 0.8670±0.0529，DDPG-Rec 的最终 CTR 为 0.8976±0.0032，在当前实验设置下高于传统基线和标准 SB3 对照。实验还说明，动作范数可以用来分析连续动作策略的行为，但不能单独当作推荐效果指标。本文结果说明，在 VirtualTB-v0 仿真实验环境中，结合连续动作推荐任务特点进行强化学习训练和策略实现改进，可以改善推荐策略表现。
   ],
   keywords: ("深度强化学习", "推荐系统", "Virtual Taobao"),
   abstract-en: [
     Recommender systems are important techniques for alleviating information overload. Traditional recommendation methods usually formulate recommendation as static preference prediction or click-through rate prediction, which makes it difficult to describe the sequential interaction between users and recommender systems. For the virtual e-commerce recommendation scenario, this thesis uses Virtual Taobao as the experimental platform. Based on the pretrained user generation, feedback, and leave models released by the original Virtual-Taobao work, this thesis wraps them into a Gymnasium-compatible VirtualTB-v0 reinforcement learning environment and formulates recommendation as a Markov decision process with a continuous action space.
 
-    In the proposed experimental framework, the state consists of the user profile, previous feedback, and page index; the action is a 27-dimensional continuous recommendation vector; and the reward is defined as the click feedback returned by the virtual user model. This thesis implements Random, MLP-SL, and LinUCB as traditional baselines, introduces PPO-SB3 and DDPG-SB3 as standard deep reinforcement learning references, and further designs PPO-Rec and DDPG-Rec as recommendation-oriented reinforcement learning policies for continuous-action recommendation tasks.
+    In the proposed experimental framework, the state consists of the user profile, previous feedback, and page index; the action is a 27-dimensional continuous recommendation vector; and the reward is defined as the click feedback returned by the virtual user model. This thesis implements Random, MLP-SL, and LinUCB as traditional baselines, introduces PPO-SB3 and DDPG-SB3 as standard deep reinforcement learning references, and further constructs PPO-Rec and DDPG-Rec as recommendation-oriented training configurations and policy implementations for continuous-action recommendation tasks.
 
-    Experiments are conducted with three random seeds. The results show that traditional baselines have limited performance in this continuous-action recommendation environment. PPO-SB3 and DDPG-SB3 can improve performance through environment interaction, but their average CTR remains lower than that of the recommendation-oriented policies. PPO-Rec achieves a final CTR of 0.8670±0.0529, and DDPG-Rec achieves a final CTR of 0.8958±0.0064, both outperforming the traditional baselines and SB3 references under the current experimental setting. The analysis also shows that action norm is useful for understanding continuous-action policy behavior, but it should not be treated as a direct recommendation metric. These results indicate that reinforcement learning policies designed for continuous-action recommendation can improve recommendation performance in VirtualTB-v0. The conclusions of this thesis are limited to the fixed virtual environment and should not be directly generalized to real online e-commerce systems.
+    Experiments are conducted with three random seeds. The results show that traditional baselines have limited performance in this continuous-action recommendation environment. PPO-SB3 and DDPG-SB3 can improve performance through environment interaction, but their average CTR remains lower than that of the recommendation-oriented policies. Reported as the mean and standard deviation over three random seeds, PPO-Rec achieves a final CTR of 0.8670±0.0529, and DDPG-Rec achieves a final CTR of 0.8976±0.0032, both outperforming the traditional baselines and SB3 references under the current experimental setting. The analysis also shows that action norm is useful for understanding continuous-action policy behavior, but it should not be treated as a direct recommendation metric. These results indicate that recommendation-oriented training configurations and policy implementations can improve recommendation performance in VirtualTB-v0. The conclusions of this thesis are limited to the fixed virtual environment and should not be directly generalized to real online e-commerce systems.
 
   ],
   keywords-en: ("Deep Reinforcement Learning", "Recommender Systems", "Virtual Taobao"),
@@ -31,15 +31,15 @@
 
     本文主实验均围绕 VirtualTB-v0 虚拟电商推荐实验环境展开。为保证不同方法之间有可比性，实验统一采用 seed=1、2、3 三个随机种子进行重复评估，并在最终结果中报告均值和标准差。传统基线方法 Random、MLP-SL 和 LinUCB 主要报告最终评估指标；PPO-SB3、DDPG-SB3、PPO-Rec 和 DDPG-Rec 除最终评估外，还记录训练过程中的周期评估结果，用于分析收敛趋势和学习速度。
 
-    主实验中，PPO-SB3、DDPG-SB3 和 PPO-Rec 的训练预算均为 100 万交互步，DDPG-Rec 的训练预算为 30 万交互步。DDPG-Rec 训练步数较少，是因为其在前期实验中表现出较高样本效率。论文正文在比较学习速度和最终效果时已对这一差异进行说明，避免将不同预算下的结果作无条件比较。
+    主实验中，PPO-SB3、DDPG-SB3、PPO-Rec 和 DDPG-Rec 的训练预算均为 100 万交互步。本文在比较深度强化学习方法时主要依据统一训练预算下的最终评估结果，并结合训练曲线分析不同方法的收敛趋势和稳定性。
 
-    主要评估指标包括平均点击率、平均累积回报、平均会话长度和动作范数，其中，平均点击率和平均累积回报用于衡量推荐策略效果；动作范数只用来辅助分析连续动作策略的输出行为，不作为推荐效果的直接指标。所有最终结论均限定在 VirtualTB-v0 固定模拟实验环境内。
+    主要评估指标包括平均点击率、平均累积回报、平均会话长度和动作范数，其中，平均点击率按照 VirtualTB-v0 中“点击数 / 商品曝光数”的 CTR 口径计算，和平均累积回报共同用于衡量推荐策略效果；动作范数只用来辅助分析连续动作策略的输出行为，不作为推荐效果的直接指标。所有最终结论均限定在 VirtualTB-v0 固定模拟实验环境内。
 
     == 结果文件说明
 
-    最终实验结果整理于 `results/final_rebuild_analysis/`，其中，`comparison/summary_mean_std.csv` 保存各方法在三个随机种子下的最终均值和标准差；`comparison/eval_history_merged.csv` 保存深度强化学习策略训练过程中的周期评估记录；`comparison/thresholds_and_peaks.csv` 保存不同方法达到若干 CTR 阈值的训练步数和历史峰值。
+    最终实验结果整理于项目结果目录中，其中，`summary_mean_std.csv` 保存各方法在三个随机种子下的最终均值和标准差；`eval_history_merged.csv` 保存深度强化学习策略训练过程中的周期评估记录；`thresholds_and_peaks.csv` 保存不同方法达到若干 CTR 阈值的训练步数和历史峰值。
 
-    论文正文中使用的主要图表来自 `results/final_rebuild_analysis/comparison/figures/`，并已同步到论文模板目录下的 `figures/final_rebuild/`，其中，最终 CTR 柱状图用于比较整体性能，seed 散点图用于观察稳定性，训练 CTR 曲线用于分析收敛过程，动作范数曲线用于解释连续动作策略行为，阈值步数图用于观察不同强化学习方法的学习速度。
+    论文正文中使用的主要图表来自最终实验结果分析目录，并已同步到论文模板的 `figures/` 目录下，其中，最终 CTR 柱状图用于比较整体性能，seed 散点图用于观察稳定性，训练 CTR 曲线用于分析收敛过程，动作范数曲线用于解释连续动作策略行为，阈值步数图用于观察不同强化学习方法的学习速度。
 
     == 复现实验流程说明
 
@@ -63,7 +63,7 @@
 
     在课题前期，我首先梳理了推荐系统、强化学习和 Virtual Taobao 相关资料，认识到真实电商推荐系统难以直接在线试错，所以需要借助可交互虚拟实验环境开展算法研究。在此基础上，本文将原始 Virtual-Taobao 发布的预训练用户生成模型、反馈模型和离开模型组织为 VirtualTB-v0 强化学习实验环境，并围绕状态、动作、回报和终止条件建立连续动作推荐任务。
 
-    在算法与实验部分，本文不仅实现了 Random、MLP-SL 和 LinUCB 等传统对比方法，也加入 PPO-SB3 和 DDPG-SB3 作为标准深度强化学习对照，并继续设计 PPO-Rec 和 DDPG-Rec 两种面向连续动作推荐任务的强化学习方法；通过多随机种子实验和统一指标分析，本文比较了不同方法在 CTR、累积回报、动作范数和稳定性方面的差异。实验结果说明，强化学习方法可以在虚拟电商实验环境中学习有效推荐策略，而面向推荐任务特点的训练设置和方法实现对最终效果有明显影响。
+    在算法与实验部分，本文不仅实现了 Random、MLP-SL 和 LinUCB 等传统对比方法，也加入 PPO-SB3 和 DDPG-SB3 作为标准深度强化学习对照，并继续构建 PPO-Rec 和 DDPG-Rec 两种面向连续动作推荐任务的训练配置与策略实现；通过多随机种子实验和统一指标分析，本文比较了不同方法在 CTR、累积回报、动作范数和稳定性方面的差异。实验结果说明，强化学习方法可以在虚拟电商实验环境中学习有效推荐策略，而面向推荐任务特点的训练设置和方法实现对最终效果有明显影响。
 
     在完成过程中，实验结果的解释需要保持谨慎。VirtualTB-v0 虽然来源于原始 Virtual-Taobao 工作中的预训练虚拟用户模型，但它仍然是固定模拟实验环境，不能简单等同于真实线上电商系统，所以本文在写作中明确限定结论适用范围，并将较高 CTR 解释为固定模拟实验环境中的策略表现，而不是现实平台中的直接效果。
 
@@ -110,7 +110,7 @@ Virtual Taobao 是国内学术界与工业界结合的代表性成果之一；�
 
 其次，本文基于原始 Virtual-Taobao 工作发布的预训练用户生成模型、反馈模型和离开模型，建立 VirtualTB-v0 强化学习实验环境。本文不重新训练这些实验环境内部模型，也不直接处理真实淘宝原始日志，而是复用原始工作基于真实匿名交互数据训练得到的预训练模型，将其组织为符合 Gymnasium 规范的虚拟电商推荐实验环境；通过统一状态空间、动作空间、回报定义和评估指标，不同推荐方法可以在同一实验环境中进行训练和评估。
 
-再次，本文设计多类推荐方法进行对比。传统方法部分，本文选取 Random、MLP-SL 和 LinUCB，分别代表无学习策略、离线监督学习策略和只改进当前反馈的上下文 Bandit 方法。强化学习方法部分，本文加入 PPO-SB3 和 DDPG-SB3 作为通用深度强化学习比较，并面向连续动作推荐任务的状态尺度、动作范围和短会话反馈特点，设计 PPO-Rec 和 DDPG-Rec 两种推荐强化学习方法；通过上述方法对比，本文可以分析面向推荐任务的策略改进对连续动作推荐训练效果的影响。
+再次，本文设计多类推荐方法进行对比。传统方法部分，本文选取 Random、MLP-SL 和 LinUCB，分别代表无学习策略、离线监督学习策略和只改进当前反馈的上下文 Bandit 方法。强化学习方法部分，本文加入 PPO-SB3 和 DDPG-SB3 作为通用深度强化学习比较，并面向连续动作推荐任务的状态尺度、动作范围和短会话反馈特点，构建 PPO-Rec 和 DDPG-Rec 两种推荐任务训练配置与策略实现；通过上述方法对比，本文可以分析面向推荐任务的策略改进对连续动作推荐训练效果的影响。
 
 最后，本文从点击率、平均累积回报、用户会话长度、动作范数以及不同随机种子下的稳定性等指标对实验结果进行分析；通过比较不同算法在 VirtualTB-v0 实验环境中的表现，本文讨论深度强化学习方法在连续动作虚拟推荐任务中的有效性、训练收益和局限性。
 
@@ -151,7 +151,7 @@ Virtual Taobao 是国内学术界与工业界结合的代表性成果之一；�
 如@推荐系统基本流程 所示，推荐系统一般由信息输入、推荐算法建模、候选物品排序、推荐结果展示和用户反馈等环节组成。系统首先收集用户信息、历史行为、上下文信息以及物品信息等数据，并将其作为推荐算法模型的输入；随后，推荐算法对候选物品进行评分或排序，生成面向用户的推荐列表；用户在浏览推荐结果后产生点击、购买、停留时长等反馈信息，这些反馈又可以继续作为新的历史行为数据，用于后续推荐模型的更新与改进。
 
 #capfig(
-  image("figures/推荐系统基本流程图.png", width: 75%),
+  image("figures/推荐系统基本流程图.png", width: 85%),
   caption: [推荐系统的基本流程图],
   label: <推荐系统基本流程>,
 )
@@ -181,7 +181,7 @@ $ hat(r)_"ui"​=p_u^T q_i $
 
 总体而言，传统推荐算法和深度推荐模型在静态偏好建模、点击率预测和排序任务中取得了较好效果，但它们一般仍将推荐问题视为单步预测问题，即根据当前状态预测用户是否会点击或购买某个物品；对于需要连续多轮交互和长期收益改进的场景，仅依赖单步预测可能难以获得全局最优的推荐方法。
 
-需要特别说明的是，标准协同过滤、矩阵分解等方法一般依赖用户编号、物品编号和用户—物品交互矩阵#multicite("Adomavicius2005RecommenderSurvey", "Koren2009MatrixFactorization")，而本文所使用的 VirtualTB-v0 实验环境提供的是 91 维状态向量、27 维连续动作向量和点击反馈，并没有显式候选商品集合，所以标准 UserCF、ItemCF 或矩阵分解方法不能直接自然地作为本文主实验方法。若要构造类似协同过滤的补充实验，只能将若干动作原型视为“伪物品”，再基于用户特征分桶构造近似交互矩阵。这类方法更适合称为 Action-Prototype Collaborative Filtering，而不能等同于标准推荐系统中的协同过滤。基于这一原因，本文主实验选择 Random、SL-BC、LinUCB 和深度强化学习方法作为比较。
+需要特别说明的是，标准协同过滤、矩阵分解等方法一般依赖用户编号、物品编号和用户—物品交互矩阵#multicite("Adomavicius2005RecommenderSurvey", "Koren2009MatrixFactorization")，而本文所使用的 VirtualTB-v0 实验环境提供的是 91 维状态向量、27 维连续动作向量和点击反馈，并没有显式候选商品集合，所以标准 UserCF、ItemCF 或矩阵分解方法不能直接自然地作为本文主实验方法。若要构造类似协同过滤的补充实验，只能将若干动作原型视为“伪物品”，再基于用户特征分桶构造近似交互矩阵。这类方法更适合称为 Action-Prototype Collaborative Filtering，而不能等同于标准推荐系统中的协同过滤。基于这一原因，本文主实验选择 Random、MLP-SL、LinUCB 和深度强化学习方法作为比较；其中的传统基线不是完整工业推荐基线，而是适配连续动作实验环境的比较方法。
 
 === 推荐系统中的序列决策问题
 
@@ -268,7 +268,7 @@ $ h_l = "sigma"(W_l h_(l-1) + b_l) $
 
 多层感知机（Multi-Layer Perceptron，MLP）是一类基础的前馈神经网络模型。MLP 一般由若干全连接层和激活函数组成，可以将输入向量映射为输出向量；在本文研究中，MLP 被用于构造监督学习行为克隆策略网络，也可以作为强化学习算法中的策略网络或价值网络结构。
 
-对于 SL-BC 方法，MLPPolicy 的输入是 91 维状态向量，输出是 27 维连续动作向量；为了匹配 VirtualTB-v0 的动作空间，网络最后一层使用 tanh 激活函数，将动作限制在 $[-1, 1]$ 范围内；该设计使监督学习得到的方法可以直接放入 VirtualTB-v0 实验环境中进行完整 episode 评估。
+对于 MLP-SL 方法，MLPPolicy 的输入是 91 维状态向量，输出是 27 维连续动作向量；为了匹配 VirtualTB-v0 的动作空间，网络最后一层使用 tanh 激活函数，将动作限制在 $[-1, 1]$ 范围内；该设计使监督学习得到的方法可以直接放入 VirtualTB-v0 实验环境中进行完整 episode 评估。
 
 对于本文的状态输入和连续动作输出而言，MLP 可以作为状态到动作的函数近似器，也可以作为 Actor-Critic 方法中的策略网络或价值网络。其结构相对清晰，便于与状态归一化、动作范围约束和 LayerNorm 等训练设置结合使用，所以本文在监督学习基线方法、PPO-Rec 和 DDPG-Rec 中均采用以 MLP 为基础的网络结构，以保证不同方法在表示能力上有相对一致的比较基础。
 
@@ -377,7 +377,7 @@ $ theta^- <- tau theta + (1 - tau) theta^- $
   | 状态 | 当前用户和会话信息 | 91 维 observation |
   | 动作 | 推荐策略输出 | 27 维连续 action |
   | 回报 | 用户当前反馈 | 点击数 reward |
-  | 方法 | 推荐决策规则 | Random、SL-BC、LinUCB、DRL 方法 |
+  | 方法 | 推荐决策规则 | Random、MLP-SL、LinUCB、DRL 方法 |
   | episode | 一次用户会话 | 用户离开或达到最大页数结束 |
 ]
 
@@ -387,7 +387,7 @@ $ theta^- <- tau theta + (1 - tau) theta^- $
 
 强化学习推荐方法则将推荐系统视为算法主体，将用户反馈视为实验环境响应，通过策略与实验环境的多轮交互改进长期累积回报。它可以自然处理延迟反馈、探索与利用以及长期收益改进问题，不过强化学习方法也存在训练样本需求大、训练不稳定、在线试错风险高等问题，所以本文采用 Virtual Taobao 虚拟实验环境进行离线训练和评估，以降低真实平台实验风险。
 
-本文涉及的几类方法在学习目标上存在明显差异。SL-BC 主要拟合离线日志中的行为动作，LinUCB 根据当前 reward 更新线性模型，深度强化学习方法则通过实验环境交互改进累积 reward。三类方法的目标并不完全相同，所以在实验分析中不能只看单一指标，而需要结合 CTR、reward、动作范数和训练稳定性进行综合判断。
+本文涉及的几类方法在学习目标上存在明显差异。MLP-SL 主要拟合离线日志中的行为动作，LinUCB 根据当前 reward 更新线性模型，深度强化学习方法则通过实验环境交互改进累积 reward。三类方法的目标并不完全相同，所以在实验分析中不能只看单一指标，而需要结合 CTR、reward、动作范数和训练稳定性进行综合判断。
 
 === 推荐系统中的回报设计
 
@@ -403,9 +403,9 @@ $ theta^- <- tau theta + (1 - tau) theta^- $
 
 === 监督学习行为克隆方法
 
-监督学习行为克隆（SL-BC）将推荐策略学习转化为监督学习问题。其基本思想是从离线日志中收集状态、动作和反馈数据，然后训练一个策略网络，使其输出动作尽可能接近日志中的行为动作。行为克隆早期已被用于自动驾驶等连续决策任务，可以用监督学习方式从示范行为中学习控制策略@Pomerleau1988ALVINN。本文使用 MLPPolicy 作为 SL-BC 策略网络，输入为 91 维状态，输出为 27 维动作，并通过 tanh 将动作限制在 $[-1, 1]$。
+监督学习行为克隆将推荐策略学习转化为监督学习问题。其基本思想是从离线日志中收集状态、动作和反馈数据，然后训练一个策略网络，使其输出动作尽可能接近日志中的行为动作。行为克隆早期已被用于自动驾驶等连续决策任务，可以用监督学习方式从示范行为中学习控制策略@Pomerleau1988ALVINN。本文使用 MLPPolicy 作为监督学习策略网络，并将该方法统一记为 MLP-SL；其输入为 91 维状态，输出为 27 维动作，并通过 tanh 将动作限制在 $[-1, 1]$。
 
-与强化学习不同，SL-BC 不通过与实验环境交互直接改进长期累积回报，而是学习离线行为数据中的动作模式。本文的 SL 数据由 VirtualTB-v0 中的行为策略采集，用于构造传统监督学习 baseline。训练时使用点击加权均方误差，使点击反馈较高的样本在损失函数中有更大权重。评估时，SL-BC 方法必须放回 VirtualTB-v0 实验环境中运行完整 episode，而不能仅根据训练集 MSE 判断推荐效果。
+与强化学习不同，MLP-SL 不通过与实验环境交互直接改进长期累积回报，而是学习离线行为数据中的动作模式。本文的 SL 数据由 VirtualTB-v0 中的行为策略采集，用于构造传统监督学习 baseline。训练时使用点击加权均方误差，使点击反馈较高的样本在损失函数中有更大权重。评估时，MLP-SL 方法必须放回 VirtualTB-v0 实验环境中运行完整 episode，而不能仅根据训练集 MSE 判断推荐效果。
 
 === 上下文 Bandit 方法
 
@@ -413,7 +413,7 @@ $ theta^- <- tau theta + (1 - tau) theta^- $
 
 本文使用 LinUCB 作为上下文 Bandit 方法。LinUCB 已被用于个性化新闻推荐等场景，其核心是根据上下文特征估计动作收益并加入置信上界以平衡探索与利用@Li2010LinUCB。本文的 LinUCB 在固定候选动作集合中选择有较高置信上界的动作，并根据当前 reward 更新参数。候选动作集合由随机动作原型和来自 SL 数据集的高点击动作原型构成，动作会被裁剪到 $[-1, 1]$ 范围内。由于 LinUCB 只改进当前 reward，不考虑长期累积回报，本文将其作为与深度强化学习方法比较的传统在线学习基线方法。
 
-由此可见，Random、SL-BC 和 LinUCB 分别提供了三种不同层次的传统参照：Random 表示无学习策略，SL-BC 表示从离线行为数据中学习，LinUCB 表示根据当前反馈在线更新。这三类方法不能完全覆盖所有传统推荐算法，但足以为本文分析深度强化学习方法提供基础对比。
+由此可见，Random、MLP-SL 和 LinUCB 分别提供了三种不同层次的传统参照：Random 表示无学习策略，MLP-SL 表示从离线行为数据中学习，LinUCB 表示根据当前反馈在线更新。这三类方法不能完全覆盖所有传统推荐算法，但足以为本文分析深度强化学习方法提供基础对比。
 
 == Virtual Taobao 实验平台
 
@@ -440,7 +440,7 @@ Virtual Taobao 的整体结构可以理解为：用户生成模型负责生成�
 在本文实验中，推荐过程被建模为一个马尔可夫决策过程。算法主体在每一步接收当前用户状态，并输出一个连续动作向量作为推荐策略的决策结果。实验环境根据该动作模拟用户反馈，并返回相应回报。本文所使用的实验环境状态由用户特征、上一轮反馈信息以及当前页面位置等组成；动作空间为连续向量空间，用于表示推荐策略输出的推荐动作；回报信号主要来源于用户反馈中的点击信息。
 
 #capfig(
-  image("figures/virtualtb_env_design.png", width: 70%),
+  image("figures/virtualtb_env_design.png", width: 90%),
   caption: [VirtualTB-v0 虚拟电商实验环境交互流程图],
   label: <virtual-taobao-process>,
 )
@@ -453,25 +453,29 @@ Virtual Taobao 的整体结构可以理解为：用户生成模型负责生成�
 
 === 点击率
 
-点击率是推荐系统中最常用的评估指标之一，一般用于衡量用户对推荐结果的兴趣程度。点击率越高，表示用户对推荐内容的响应越积极。在一般推荐系统中，点击率可以表示为：
+点击率是推荐系统中最常用的评估指标之一，一般用于衡量用户对推荐结果的兴趣程度。点击率越高，表示用户对推荐内容的响应越积极。在一般推荐系统中，点击率通常表示为点击次数与曝光次数之比：
 
-$ C = frac(N_c, N_i) $ <eqt:ctr-basic>
+$ "ctr" = frac("clicks", "impressions") $ <eqt:ctr-basic>
 
-在 Virtual Taobao 实验环境中，算法主体每一步输出推荐动作后，实验环境会返回用户反馈。本文将一次页面交互视为一次展示，将实验环境返回的点击反馈作为点击次数的度量，所以在一个完整用户会话中，可以根据总点击数和总交互页数计算平均点击率：
+在 Virtual Taobao 实验环境中，算法主体每一步输出推荐动作后，实验环境会返回点击反馈。本文将一次页面交互视为一个推荐页面，按照 VirtualTB-v0 的设定，每个页面包含 10 个商品展示位置。因此，第 $t$ 页的曝光数可以记为 $n_t=10$，实验环境返回的点击反馈 $c_t$ 可以理解为该页 10 个商品中的点击数量。基于这一设定，本文 CTR 的计算方式为：
 
-$ C = frac(1, T) sum_(t=1)^T c_t $ <eqt:ctr-episode>
+$ "ctr" = frac(sum_(t=1)^T c_t, sum_(t=1)^T n_t) $ <eqt:ctr-episode>
 
-其中，$C$ 表示点击率，$N_c$ 表示点击总次数，$N_i$ 表示展示总次数，$T$ 表示一个 episode 中的交互步数，$c_t$ 表示第 $t$ 步获得的点击反馈。当实验环境中的点击反馈为二值变量时，上式等价于“总点击数除以总展示数”；若实验环境中的点击反馈存在固定归一化方式，则在实验统计时按照实验环境定义进行统一处理。
+由于 VirtualTB-v0 中每页商品展示数固定为 10，上式可以进一步写为：
 
-点击率可以直观反映推荐方法的当前推荐效果。如果某一算法在相同实验条件下获得更高的点击率，说明该算法生成的推荐动作更容易引起用户点击。但点击率主要反映当前反馈，不能完全代表推荐策略的长期效果，所以还需要结合累积回报等指标进行综合分析。
+$ "ctr" = frac(sum_(t=1)^T c_t, 10 T) $
+
+其中，$T$ 表示一个 episode 中的交互步数，$c_t$ 表示第 $t$ 页获得的点击反馈，$n_t$ 表示第 $t$ 页的商品展示数。
+
+点击率可以直观反映推荐方法的当前推荐效果。如果某一算法在相同实验条件下获得更高的点击率，说明该算法生成的推荐动作更容易引起用户点击。
 
 === 累积回报
 
 强化学习的目标是最大化长期累积回报，所以累积回报是评估强化学习推荐方法的重要指标。在 Virtual Taobao 实验环境中，算法主体与虚拟用户进行多步交互，每一步都会获得实验环境返回的回报。一个 episode 内所有回报之和可以表示为：
 
-$ R = sum_(t=1)^T r_t $ <eqt:cumulative-reward>
+$ "reward" = sum_(t=1)^T r_t $ <eqt:cumulative-reward>
 
-其中，$r_t$ 表示第 $t$ 步实验环境返回的回报，$T$ 表示当前 episode 的长度。
+其中，$r_t$ 表示第 $t$ 步实验环境返回的回报，$T$ 表示当前 episode 的长度。由于本文的即时回报由点击反馈给出，所以累积回报可以理解为一个用户会话中的总点击收益。
 
 累积回报反映了推荐方法在一次完整用户会话中的总体收益；与单步点击率相比，累积回报更强调方法在整个交互过程中的表现。如果某一算法可以在多个交互步骤中持续获得较高回报，则其累积回报也会更高；对于深度强化学习算法而言，累积回报是衡量策略改进效果的核心指标之一。
 
@@ -516,9 +520,9 @@ $ A = frac(1, T) sum_(t=1)^T ||a_t||_2 $ <eqt:avg-action-norm>
 
 本文的实验系统围绕 VirtualTB-v0 虚拟电商推荐实验环境展开。整体流程可以概括为：首先，实验环境生成一个虚拟用户并给出初始状态；其次，推荐策略根据当前状态输出连续动作；然后，实验环境根据用户特征、当前页码和推荐动作生成点击反馈，并判断当前用户是否离开；最后，算法根据交互反馈更新策略，评估阶段则在相同实验环境中统计点击率、累积回报、会话长度和动作范数等指标。
 
-从功能划分看，本文系统由实验环境建模、数据构造、策略学习和结果评估四个部分组成。实验环境建模部分负责将已有虚拟用户模型封装为符合 Gymnasium 规范的强化学习实验环境@Towers2024Gymnasium；数据构造部分用于形成监督学习和上下文 Bandit 所需的离线交互样本；策略学习部分包括传统基线、标准深度强化学习实现以及本文面向连续动作推荐任务设计的 PPO-Rec 和 DDPG-Rec；结果评估部分在统一随机种子和统一指标下比较不同方法的表现。
+从功能划分看，本文系统由实验环境建模、数据构造、策略学习和结果评估四个部分组成。实验环境建模部分负责将已有虚拟用户模型封装为符合 Gymnasium 规范的强化学习实验环境@Towers2024Gymnasium；数据构造部分用于形成监督学习和上下文 Bandit 所需的离线交互样本；策略学习部分包括传统基线、标准深度强化学习实现以及本文面向连续动作推荐任务构建的 PPO-Rec 和 DDPG-Rec；结果评估部分在统一随机种子和统一指标下比较不同方法的表现。
 
-本文主实验方法如@tab-main-algorithms 所示。Random、MLP-SL 和 LinUCB 分别对应无学习策略、离线监督学习策略和只改进当前反馈的上下文 Bandit 方法；PPO-SB3 与 DDPG-SB3 用作通用深度强化学习实现的对照；PPO-Rec 与 DDPG-Rec 则是在相同推荐任务设定下，结合状态尺度、动作范围和短会话反馈特点设计的强化学习推荐方法。
+本文主实验方法如@tab-main-algorithms 所示。Random、MLP-SL 和 LinUCB 分别对应无学习策略、离线监督学习策略和只改进当前反馈的上下文 Bandit 方法；PPO-SB3 与 DDPG-SB3 用作通用深度强化学习实现的对照；PPO-Rec 与 DDPG-Rec 则是在相同推荐任务设定下，结合状态尺度、动作范围和短会话反馈特点构建的训练配置与策略实现。
 
 #captab(
   caption: [本文主实验算法清单],
@@ -531,8 +535,8 @@ $ A = frac(1, T) sum_(t=1)^T ||a_t||_2 $ <eqt:avg-action-norm>
   | LinUCB | 上下文 Bandit | 基于固定动作原型和当前反馈进行在线选择 |
   | PPO-SB3 | 标准深度强化学习对照 | 使用通用 PPO 实现训练连续动作策略 |
   | DDPG-SB3 | 标准深度强化学习对照 | 使用通用 DDPG 实现训练连续动作策略 |
-  | PPO-Rec | 推荐强化学习方法 | 面向连续动作推荐任务改进的 PPO 方法 |
-  | DDPG-Rec | 推荐强化学习方法 | 面向短会话反馈和连续动作空间改进的 DDPG 方法 |
+  | PPO-Rec | 推荐强化学习方法 | 面向连续动作推荐任务的 PPO 训练配置与策略实现 |
+  | DDPG-Rec | 推荐强化学习方法 | 面向短会话反馈和连续动作空间的 DDPG 训练配置与策略实现 |
 ]
 
 == 预训练实验环境模型来源
@@ -552,7 +556,7 @@ Virtual Taobao 的核心思想是用历史用户行为数据学习一个可交�
   | LeaveModel | 用户画像 | 用户离开页数 | 决定 episode 的自然终止时刻 | 原始 Virtual-Taobao 预训练模型 |
 ]
 
-这一来源说明对于本文实验解释比较重要。本文的实验对象不是一个人工虚构的点击函数，而是原始 Virtual-Taobao 工作根据真实匿名交互数据学习得到的虚拟电商模拟器；同时，本文的工作边界也必须保持清晰，即本文关注的是该模拟器上的强化学习任务定义、实验环境接口封装和推荐策略训练，而不是重新建立 Virtual Taobao 的用户行为模型。
+本文的实验对象不是一个人工虚构的点击函数，而是原始 Virtual-Taobao 工作根据真实匿名交互数据学习得到的虚拟电商模拟器；同时，本文的工作边界也必须保持清晰，即本文关注的是该模拟器上的强化学习任务定义、实验环境接口封装和推荐策略训练，而不是重新建立 Virtual Taobao 的用户行为模型。
 
 == VirtualTB-v0 实验环境接口设计
 
@@ -583,7 +587,7 @@ $ s_t -> a_t -> r_t, s_(t+1) $
 
 == 状态、动作与回报函数设计
 
-强化学习推荐任务的关键在于合理定义状态、动作和回报。本文的设计目标不是还原完整真实电商系统的所有细节，而是在 VirtualTB-v0 固定模拟器中构造一个可训练、可评估、可复现的连续动作推荐任务。
+强化学习推荐任务的关键在于合理定义状态、动作和回报。本文的设计目标是在 VirtualTB-v0 固定模拟器中构造一个可训练、可评估、可复现的连续动作推荐任务。
 
 === 状态设计
 
@@ -593,7 +597,7 @@ $ s_t = [u, c_(t-1), b_(t-1), p_t] $
 
 其中，$u in R^88$ 表示当前虚拟用户画像，$c_(t-1)$ 表示上一轮点击数，$b_(t-1)$ 表示上一轮反馈索引，$p_t$ 表示当前页码，所以状态总维度为 $88 + 2 + 1 = 91$。前 88 维用户画像由用户生成模型产生，后 3 维动态特征用于向策略提供上一轮反馈和当前会话位置。
 
-这种状态设计体现了推荐任务中的两个基本信息来源：一是用户自身属性，二是用户在当前会话中的近期反馈。由于 VirtualTB-v0 没有显式提供用户历史点击序列、候选商品集合或商品编号，本文没有加入 RNN 或 Transformer 建模长期兴趣序列，而是将实验环境可观测信息直接作为强化学习状态。
+这种状态设计体现了推荐任务中的两个基本信息来源：一是用户自身属性，二是用户在当前会话中的近期反馈。由于 VirtualTB-v0 没有显式提供用户历史点击序列、候选商品集合或商品编号，本文没有去建模长期兴趣序列，而是将实验环境可观测信息直接作为强化学习状态。
 
 === 动作设计
 
@@ -613,15 +617,19 @@ $ r_t = c_t $
 
 其中，$c_t$ 表示第 $t$ 步推荐动作获得的点击反馈。一个 episode 的累积回报为：
 
-$ R = sum_(t=1)^T r_t $
+$ "reward" = sum_(t=1)^T r_t $
 
 点击回报可以直接反映虚拟用户对当前推荐动作的当前响应，也是本文计算 CTR 的基础。需要注意的是，本文没有额外加入人工 reward shaping，也没有用动作范数惩罚替代原始实验环境回报。这样做的目的是保证不同算法在评估阶段都基于相同的原始实验环境反馈进行比较。
 
-在评估时，本文继续统计平均 CTR：
+在评估时，本文继续统计平均 CTR。由于 VirtualTB-v0 中每个推荐页面包含 10 个商品展示位置，若第 $t$ 页的商品曝光数记为 $n_t$，则 $n_t=10$。因此，本文 CTR 按总点击反馈与总商品曝光数之比计算：
 
-$ "CTR" = frac(sum_(t=1)^T c_t, 10T) $
+$ "ctr" = frac(sum_(t=1)^T c_t, sum_(t=1)^T n_t) $
 
-其中，分母中的 10 来自 VirtualTB-v0 中点击反馈的取值尺度；该 CTR 是固定模拟实验环境下的评估指标，不能直接等同于真实线上电商平台中的点击率。
+由于 $n_t=10$，也可写为：
+
+$ "ctr" = frac(sum_(t=1)^T c_t, 10 T) $
+
+其中，$T$ 表示一个 episode 中的页面数，$c_t$ 表示第 $t$ 页对应的点击反馈。该定义与“点击数 / 曝光数”的标准 CTR 定义一致，只是曝光数在 VirtualTB-v0 中由每页 10 个商品展示位置确定。对于每个随机种子，最终评估先在若干 episode 上计算平均 CTR；论文主表中的“均值 ± 标准差”进一步表示 seed=1、2、3 三个随机种子结果的均值和种子间标准差。
 
 == 离线日志与监督学习数据集
 
@@ -645,7 +653,7 @@ $ "CTR" = frac(sum_(t=1)^T c_t, 10T) $
 
 == 传统基线方法设计
 
-由于 VirtualTB-v0 的动作不是离散商品编号，而是 27 维连续动作向量，本文无法直接构造标准用户--物品交互矩阵，所以 UserCF、ItemCF 和矩阵分解等方法难以自然作为主实验方法。基于这一任务特点，本文传统方法部分选择 Random、MLP-SL 和 LinUCB，分别代表无学习策略、离线监督学习策略和当前反馈在线学习方法。
+由于 VirtualTB-v0 的动作不是离散商品编号，而是 27 维连续动作向量，本文无法直接构造标准用户--物品交互矩阵，所以 UserCF、ItemCF 和矩阵分解等方法难以自然作为主实验方法。基于这一任务特点，本文传统方法部分选择 Random、MLP-SL 和 LinUCB，分别代表无学习策略、离线监督学习策略和当前反馈在线学习方法。需要说明的是，本文中的传统基线不是完整工业推荐基线，而是为连续动作推荐实验环境构造的比较方法。
 
 === Random
 
@@ -673,11 +681,11 @@ LinUCB 是本文采用的上下文 Bandit baseline。它根据当前状态估计
 
 为了判断面向推荐任务的策略改进是否真正带来收益，本文加入 Stable-Baselines3 中的 PPO 和 DDPG 作为标准深度强化学习对照@Raffin2021SB3。二者都可以处理连续动作空间，但训练机制不同：PPO 属于 on-policy 策略改进方法，强调限制策略更新幅度；DDPG 属于 off-policy Actor-Critic 方法，使用经验回放和目标网络提高样本利用效率。
 
-在本文中，PPO-SB3 和 DDPG-SB3 使用相同的 VirtualTB-v0 实验环境、相同的状态与动作定义以及相同的最终评估指标。它们的作用不是作为本文提出的方法，而是作为通用强化学习实现的参考比较；通过比较 SB3 对照与 PPO-Rec、DDPG-Rec，可以观察通用算法直接应用于连续动作推荐任务时的表现，以及推荐任务特性对训练效果的影响。
+在本文中，PPO-SB3 和 DDPG-SB3 使用相同的 VirtualTB-v0 实验环境、相同的状态与动作定义以及相同的最终评估指标。它们的作用不是作为本文提出的方法，而是作为通用强化学习实现的参考比较；通过比较 SB3 对照与 PPO-Rec、DDPG-Rec，可以观察通用算法直接应用于连续动作推荐任务时的表现，以及推荐任务特性对训练效果的影响。为避免概念混淆，本文中的 PPO-Rec 和 DDPG-Rec 不表示对 PPO、DDPG 基础理论的重新提出，而是指面向连续动作推荐任务的训练配置、网络实现和模型选择流程改进。
 
 == PPO-Rec 推荐方法
 
-PPO-Rec 在 PPO 基本思想基础上，面向连续动作推荐任务中的状态尺度差异和动作范围约束进行设计。策略网络采用 Actor-Critic 结构，输入为 91 维状态，输出为连续高斯策略的均值和状态价值估计。策略均值经过 tanh 限制在实验环境动作范围内，训练时从高斯分布中采样动作以保持探索，评估时使用确定性均值动作以减少随机性。
+PPO-Rec 在 PPO 基本思想基础上，面向连续动作推荐任务中的状态尺度差异、动作范围约束和短会话反馈特点进行实现。相对于直接调用 PPO-SB3，PPO-Rec 的主要变化包括：显式归一化状态中的动态计数特征，在 Actor-Critic 网络中加入 LayerNorm，使用 tanh 和裁剪共同约束连续动作范围，并采用较小折扣因子和 GAE 参数以适应较短用户会话。策略网络输入为 91 维状态，输出为连续高斯策略的均值和状态价值估计；训练时从高斯分布中采样动作以保持探索，评估时使用确定性均值动作以减少随机性。
 
 由于推荐状态中包含点击数、反馈索引和页码等不同尺度的动态特征，PPO-Rec 对状态中的动态维度进行归一化处理：上一轮点击反馈除以 10，反馈索引除以 9，页码除以 100，使其与用户静态特征处于更接近的数值范围；同时，网络中使用 LayerNorm 缓解特征尺度差异带来的训练不稳定问题。
 
@@ -689,19 +697,19 @@ $ r_t^"clip"(theta) = "clip"(r_t(theta), 1 - epsilon, 1 + epsilon) $
 
 $ L^"CLIP"(theta) = E_t [min(r_t(theta) A_t, r_t^"clip"(theta) A_t)] $
 
-在训练过程中，PPO-Rec 同时改进策略损失、价值函数损失和熵正则项。由于虚拟电商推荐中的用户会话长度相对较短，本文使用较小折扣因子，使策略更加关注近期点击反馈。训练期间定期将当前策略放回实验环境中进行完整 episode 评估，并以 CTR 作为保存最优策略的较为重要依据。
+在训练过程中，PPO-Rec 同时改进策略损失、价值函数损失和熵正则项，并使用梯度裁剪与目标 KL 约束降低策略更新过大的风险。由于虚拟电商推荐中的用户会话长度相对较短，本文使用较小折扣因子，使策略更加关注近期点击反馈。训练期间定期将当前策略放回实验环境中进行完整 episode 评估，并以 CTR 作为保存最优策略的较为重要依据。
 
 PPO-Rec 的整体训练结构如@fig-ppo-rec-structure 所示；该方法以归一化后的状态作为输入，通过 Actor-Critic 网络产生连续动作分布和价值估计，再将约束后的动作输入实验环境获得点击反馈，并利用 PPO 裁剪目标函数完成策略更新。
 
 #capfig(
-  image("figures/ppo_rec_structure.png", width: 70%),
+  image("figures/ppo_rec_structure.png", width: 90%),
   caption: [PPO-Rec 推荐策略结构图],
   label: <fig-ppo-rec-structure>,
 )
 
 == DDPG-Rec 推荐方法
 
-DDPG-Rec 针对连续动作推荐任务中的短会话反馈和确定性动作输出特点进行设计。其 Actor 网络根据当前状态直接输出 27 维确定性动作，Critic 网络估计状态—动作对的价值；与 PPO 不同，DDPG 使用经验回放机制，可以重复利用历史交互样本，所以在样本效率部分有潜在优势。
+DDPG-Rec 针对连续动作推荐任务中的短会话反馈和确定性动作输出特点进行实现。相对于 DDPG-SB3 对照，DDPG-Rec 的主要变化包括：对状态动态维度进行归一化，Actor 和 Critic 中加入 LayerNorm，Actor 末端使用 tanh 约束动作范围，采用较小 Actor 学习率、reward scale、梯度裁剪和延迟开始学习，以降低训练初期 Critic 目标值波动。其 Actor 网络根据当前状态直接输出 27 维确定性动作，Critic 网络估计状态—动作对的价值；与 PPO 不同，DDPG 使用经验回放机制，可以重复利用历史交互样本，所以在样本效率部分有潜在优势。
 
 为了提高训练稳定性，DDPG-Rec 使用目标 Actor、目标 Critic 和软更新机制。设在线网络参数为 $theta$，目标网络参数为 $theta^-$，软更新可以表示为：
 
@@ -715,12 +723,12 @@ $ y_t = beta r_t + gamma (1 - d_t) Q^-(s_(t+1), mu^-(s_(t+1))) $
 
 $ J_mu = E_s [Q(s, mu(s))] $
 
-在训练设置上，DDPG-Rec 使用状态归一化、LayerNorm、较小 Actor 学习率、梯度裁剪和延迟开始学习等设置，以降低训练初期不稳定性。训练时在动作上加入探索噪声，评估时使用确定性动作；与 PPO-Rec 类似，DDPG-Rec 在训练过程中定期进行环境评估，并根据 CTR 保存最优策略。
+在训练设置上，DDPG-Rec 使用状态归一化、LayerNorm、较小 Actor 学习率、梯度裁剪和延迟开始学习等设置，以降低训练初期不稳定性。训练时在动作上加入逐步衰减的探索噪声，评估时使用确定性动作；与 PPO-Rec 类似，DDPG-Rec 在训练过程中定期进行环境评估，并根据 CTR 保存最优策略。
 
 DDPG-Rec 的整体训练结构如@fig-ddpg-rec-structure 所示；该方法通过 Actor 输出确定性连续动作，并将交互样本存入经验回放池；Critic 根据回放样本估计状态--动作价值，目标网络和软更新机制用于缓解价值估计震荡。
 
 #capfig(
-  image("figures/ddpg_rec_structure.png", width: 70%),
+  image("figures/ddpg_rec_structure.png", width: 90%),
   caption: [DDPG-Rec 推荐策略结构图],
   label: <fig-ddpg-rec-structure>,
 )
@@ -738,12 +746,13 @@ DDPG-Rec 的整体训练结构如@fig-ddpg-rec-structure 所示；该方法通�
   | 动作范围约束 | 连续动作输出可能越界或幅度异常 | Actor 输出经 tanh 限制，实验环境侧保持动作裁剪 | 使推荐动作符合实验环境定义，避免异常动作影响反馈 |
   | 短会话参数设置 | 用户会话较短，远期回报不确定性较高 | PPO-Rec 使用较小 $gamma$ 和 GAE 参数；DDPG-Rec 使用较小 $gamma$ | 使策略更关注近期点击反馈和短期会话收益 |
   | 回报缩放 | 点击反馈尺度可能影响 Critic 目标值 | DDPG-Rec 使用 reward scale 系数 $beta=0.5$ | 缓解价值估计波动，改善 Critic 学习 |
+  | 探索与更新稳定化 | 连续动作探索容易导致早期策略震荡 | PPO-Rec 使用熵正则、目标 KL 和梯度裁剪；DDPG-Rec 使用衰减探索噪声、软更新和梯度裁剪 | 在保持探索的同时降低训练波动 |
   | 基于 CTR 的策略选择 | 训练损失与最终推荐指标不完全一致 | 周期评估并按评估 CTR 保存最优策略 | 使模型选择更贴近最终评估指标 |
 ]
 
 == 实验记录与统一评估
 
-为了保证不同方法之间有可比性，本文在评估阶段统一使用 VirtualTB-v0 的原始 reward 和 CTR 计算方式，不使用训练过程中可能出现的辅助损失或内部指标替代最终评估指标。每个算法均在 seed=1,2,3 下运行，并统计最终 CTR、平均累积回报、会话长度、动作范数和 seed 间标准差。
+为了保证不同方法之间有可比性，本文在评估阶段统一使用 VirtualTB-v0 的原始 reward 和 CTR 计算方式，不使用训练过程中可能出现的辅助损失或内部指标替代最终评估指标。每个算法均在 seed=1,2,3 下运行。对于每个 seed，先在最终评估 episode 上计算平均 CTR、平均累积回报、会话长度和动作范数；再在三个 seed 结果上统计均值和标准差。因此，论文主实验表中的标准差表示随机种子之间的差异，而不是单个 seed 内 episode 之间的波动。
 
 对于深度强化学习方法，训练过程中还记录周期性评估结果，用于绘制 CTR 曲线、回报曲线和动作范数曲线；对于 Random、MLP-SL 和 LinUCB 等非深度强化学习方法，本文只报告最终评估结果，不绘制随训练步数变化的曲线，以避免将不同类型方法的训练过程作不恰当比较。
 
@@ -756,11 +765,11 @@ DDPG-Rec 的整体训练结构如@fig-ddpg-rec-structure 所示；该方法通�
 
 == 实验设置
 
-本文在 VirtualTB-v0 实验环境中对不同推荐方法进行统一评估。主实验包含三类方法：第一类为传统或非强化学习基线方法，包括 Random、MLP-SL 和 LinUCB；第二类为标准深度强化学习对照，包括 PPO-SB3 和 DDPG-SB3；第三类为本文面向连续动作推荐任务设计的 PPO-Rec 和 DDPG-Rec。所有方法均使用 seed=1、2、3 三个随机种子进行重复实验，并统计平均值和标准差。
+本文在 VirtualTB-v0 实验环境中对不同推荐方法进行统一评估。主实验包含三类方法：第一类为传统或非强化学习基线方法，包括 Random、MLP-SL 和 LinUCB；第二类为标准深度强化学习对照，包括 PPO-SB3 和 DDPG-SB3；第三类为本文面向连续动作推荐任务构建的 PPO-Rec 和 DDPG-Rec。所有方法均使用 seed=1、2、3 三个随机种子进行重复实验，并统计平均值和标准差。
 
-实验评估指标包括平均 CTR、平均累积回报、动作范数和不同随机种子下的稳定性，其中，CTR 用于衡量虚拟用户对推荐动作的点击反馈强度，平均累积回报用于衡量完整 episode 中的总点击收益，动作范数用于观察连续动作策略的输出幅度。会话长度在实验中作为辅助记录指标保留，但由于各方法最终会话长度差异较小，正文不将其作为主要结论展开；需要说明的是，动作范数不是直接的推荐效果指标，而是辅助分析策略行为是否过于激进。
+实验评估指标包括平均 CTR、平均累积回报、动作范数和不同随机种子下的稳定性，其中，CTR 用于衡量虚拟用户对推荐动作的点击反馈强度，平均累积回报用于衡量完整 episode 中的总点击收益，动作范数用于观察连续动作策略的输出幅度。本文 CTR 按前文定义计算，即 episode 内总点击反馈除以总商品曝光数。会话长度在实验中作为辅助记录指标保留，但由于各方法最终会话长度差异较小，正文不将其作为主要结论展开；需要说明的是，动作范数不是直接的推荐效果指标，而是辅助分析策略行为是否过于激进。
 
-实验软件环境如@tab-software-env 所示。部分方法在不同批次中使用 CPU 或 CUDA 设备运行，所以本文不以真实训练耗时作为核心比较指标，而是以实验环境交互步数、最终评估 episode 数和统一评估指标作为主要比较依据。
+具体实验软件环境如@tab-software-env 所示。
 
 #captab(
   caption: [实验软件环境],
@@ -776,7 +785,7 @@ DDPG-Rec 的整体训练结构如@fig-ddpg-rec-structure 所示；该方法通�
   | 主要实验环境 | VirtualTB-v0 |
 ]
 
-不同方法的训练预算如@tab-exp-setting 所示。PPO-SB3、DDPG-SB3 和 PPO-Rec 均训练 100 万步，DDPG-Rec 训练 30 万步。DDPG-Rec 的训练步数较少，是因为其在前期实验中已经表现出较高样本效率；在结果分析时，本文会同时说明这一训练预算差异，避免将不同训练设置下的结果作不加说明的直接比较。Random、MLP-SL 和 LinUCB 不具有与深度强化学习完全对应的实验环境交互训练曲线，所以主要报告最终评估结果。
+不同方法的训练预算如@tab-exp-setting 所示。PPO-SB3、DDPG-SB3、PPO-Rec 和 DDPG-Rec 均训练 100 万步。Random、MLP-SL 和 LinUCB 不具有与深度强化学习完全对应的实验环境交互训练曲线，所以主要报告最终评估结果。
 
 #captab(
   caption: [主实验设置],
@@ -790,7 +799,7 @@ DDPG-Rec 的整体训练结构如@fig-ddpg-rec-structure 所示；该方法通�
   | PPO-SB3 | 标准 DRL 对照 | 1M | 500 | 是 |
   | DDPG-SB3 | 标准 DRL 对照 | 1M | 500 | 是 |
   | PPO-Rec | 推荐任务改进 DRL | 1M | 500 | 是 |
-  | DDPG-Rec | 推荐任务改进 DRL | 300k | 500 | 是 |
+  | DDPG-Rec | 推荐任务改进 DRL | 1M | 500 | 是 |
 ]
 
 进一步地，主要方法的关键参数如@tab-key-hparams 所示；
@@ -806,15 +815,15 @@ DDPG-Rec 的整体训练结构如@fig-ddpg-rec-structure 所示；该方法通�
   | PPO-SB3 | total timesteps=1M，eval freq=20000，final eval episodes=500 |
   | DDPG-SB3 | total timesteps=1M，eval freq=20000，final eval episodes=500 |
   | PPO-Rec | total timesteps=1M，eval freq=20000，gamma=0.5，gae lambda=0.9，clip range=0.2，final eval episodes=500 |
-  | DDPG-Rec | total timesteps=300k，eval freq=5000，gamma=0.7，reward scale=0.5，actor lr=$3 times 10^(-5)$，critic lr=$3 times 10^(-4)$，final eval episodes=500 |
+  | DDPG-Rec | total timesteps=1M，eval freq=25000，gamma=0.7，reward scale=0.5，actor lr=$3 times 10^(-5)$，critic lr=$3 times 10^(-4)$，final eval episodes=500 |
 ]
 
 
 == 主实验最终结果
 
-@tab-main-results 给出了各方法在三个随机种子上的最终评估均值和标准差。可以看到，Random 的 CTR 仅为 0.0185，说明随机连续动作几乎不能获得有效点击反馈。MLP-SL 的 CTR 提升到 0.1699，说明离线动作拟合可以学习到一定行为模式，但其效果仍然有限。LinUCB 的 CTR 为 0.2222，高于 Random 和 MLP-SL，说明基于上下文和当前反馈的动作选择可以带来继续提升，但由于其只在固定动作原型集合中选择动作，且不建模长期累积回报，整体性能仍低于深度强化学习方法。
+@tab-main-results 给出了各方法在三个随机种子上的最终评估均值和种子间标准差。可以看到，Random 的 CTR 仅为 0.0185，说明随机连续动作几乎不能获得有效点击反馈。MLP-SL 的 CTR 提升到 0.1699，说明离线动作拟合可以学习到一定行为模式，但其效果仍然有限。LinUCB 的 CTR 为 0.2222，高于 Random 和 MLP-SL，说明基于上下文和当前反馈的动作选择可以带来继续提升，但由于其只在固定动作原型集合中选择动作，且不建模长期累积回报，整体性能仍低于深度强化学习方法。
 
-标准深度强化学习对照中，PPO-SB3 的 CTR 为 0.4158，DDPG-SB3 的 CTR 为 0.3031。二者均高于传统基线，说明强化学习方法可以通过实验环境交互学习到更有效的连续动作。但与面向推荐任务改进后的方法相比，SB3 对照方法仍存在较大差距。PPO-Rec 的 CTR 达到 0.8670，DDPG-Rec 的 CTR 达到 0.8958，二者在平均累积回报上也高于其他方法。
+标准深度强化学习对照中，PPO-SB3 的 CTR 为 0.4158，DDPG-SB3 的 CTR 为 0.3031。二者均高于传统基线，说明强化学习方法可以通过实验环境交互学习到更有效的连续动作。但与面向推荐任务改进后的方法相比，SB3 对照方法仍存在较大差距。PPO-Rec 的 CTR 达到 0.8670，DDPG-Rec 的 CTR 达到 0.8976，二者在平均累积回报上也高于其他方法。
 
 #captab(
   caption: [各算法最终评估结果],
@@ -828,12 +837,12 @@ DDPG-Rec 的整体训练结构如@fig-ddpg-rec-structure 所示；该方法通�
   | PPO-SB3 | 0.4158 ± 0.0413 | 28.6544 ± 4.7950 | 3.1917 ± 1.2221 | 1M |
   | DDPG-SB3 | 0.3031 ± 0.1101 | 20.4989 ± 7.1486 | 4.9396 ± 0.0403 | 1M |
   | PPO-Rec | 0.8670 ± 0.0529 | 65.4773 ± 3.0918 | 3.7742 ± 0.2963 | 1M |
-  | DDPG-Rec | 0.8958 ± 0.0064 | 67.2553 ± 0.1504 | 4.7519 ± 0.0927 | 300k |
+  | DDPG-Rec | 0.8976 ± 0.0032 | 67.2907 ± 0.1781 | 4.5730 ± 0.0312 | 1M |
 ]
 
-从最终 CTR 看，传统基线方法整体低于深度强化学习方法，说明在连续动作推荐实验环境中，仅依赖随机动作、离线行为拟合或当前反馈更新难以充分利用多轮交互信息。PPO-Rec 和 DDPG-Rec 均高于对应 SB3 对照，说明针对状态尺度、动作范围和短会话反馈特点进行训练设置调整后，策略更容易进入高反馈动作区域；该结果支持本文关于“面向推荐任务特点的强化学习方法实现可以改善通用 DRL 策略表现”的主要观察，但仍应结合前述训练预算和评估 episode 差异进行解释。
+从最终 CTR 看，传统基线方法整体低于深度强化学习方法，说明在连续动作推荐实验环境中，仅依赖随机动作、离线行为拟合或当前反馈更新难以充分利用多轮交互信息。PPO-Rec 和 DDPG-Rec 均高于对应 SB3 对照，说明针对状态尺度、动作范围和短会话反馈特点进行训练设置调整后，策略更容易进入高反馈动作区域；该结果支持本文关于“面向推荐任务特点的强化学习方法实现可以改善通用 DRL 策略表现”的主要观察，但仍应结合评估 episode 数和实现设置差异进行解释。
 
-如@fig-final-ctr 所示，在当前实验设置下，PPO-Rec 和 DDPG-Rec 的平均 CTR 均高于传统基线和 SB3 对照。PPO-Rec 相比 PPO-SB3 的 CTR 绝对提升约为 0.4512，DDPG-Rec 相比 DDPG-SB3 的 CTR 绝对提升约为 0.5927；这一结果说明，在 VirtualTB-v0 这种状态维度较高、动作连续且 episode 较短的推荐实验环境中，直接使用通用强化学习实现并不一定能充分发挥算法潜力；面向推荐任务特点加入状态归一化、动作范围约束、稳定训练设置和基于实验环境指标的最优策略保存，对最终效果有影响。
+如@fig-final-ctr 所示，在当前实验设置下，PPO-Rec 和 DDPG-Rec 的平均 CTR 均高于传统基线和 SB3 对照。PPO-Rec 相比 PPO-SB3 的 CTR 绝对提升约为 0.4512，DDPG-Rec 相比 DDPG-SB3 的 CTR 绝对提升约为 0.5946；这一结果说明，在 VirtualTB-v0 这种状态维度较高、动作连续且 episode 较短的推荐实验环境中，直接使用通用强化学习实现并不一定能充分发挥算法潜力；面向推荐任务特点加入状态归一化、动作范围约束、稳定训练设置和基于实验环境指标的最优策略保存，对最终效果有影响。
 
 #capfig(
   image("figures/final_rebuild/final_ctr_mean_std.png", width: 80%),
@@ -841,7 +850,7 @@ DDPG-Rec 的整体训练结构如@fig-ddpg-rec-structure 所示；该方法通�
   label: <fig-final-ctr>,
 )
 
-@fig-final-ctr-seed 展示了不同随机种子下各方法的最终 CTR。可以看到，DDPG-Rec 不仅平均 CTR 最高，而且三个种子之间的波动较小，标准差仅为 0.0064。PPO-Rec 的平均 CTR 也较高，但 seed=2 的结果低于 seed=1 和 seed=3，所以稳定性略弱于 DDPG-Rec。DDPG-SB3 的 seed 间差异较大，说明通用 DDPG 实现在当前实验环境中对随机种子和训练过程较为敏感。
+@fig-final-ctr-seed 展示了不同随机种子下各方法的最终 CTR。可以看到，DDPG-Rec 不仅平均 CTR 最高，而且三个种子之间的波动较小，标准差仅为 0.0032。PPO-Rec 的平均 CTR 也较高，但 seed=2 的结果低于 seed=1 和 seed=3，所以稳定性略弱于 DDPG-Rec。DDPG-SB3 的 seed 间差异较大，说明通用 DDPG 实现在当前实验环境中对随机种子和训练过程较为敏感。
 
 #capfig(
   image("figures/final_rebuild/final_ctr_by_seed_scatter.png", width: 80%),
@@ -869,13 +878,13 @@ LinUCB 的表现高于 MLP-SL，说明在固定候选动作集合中利用上下
 
 从训练曲线可以看出，PPO-SB3 在训练前期可以较快提升 CTR，但后续出现平台期和一定波动；DDPG-SB3 整体提升较慢，且不同 seed 之间差异明显。这说明通用强化学习实现虽然可以在 VirtualTB-v0 上学习，但在状态尺度、动作空间和短会话反馈部分并未充分体现连续动作推荐任务的特点。
 
-PPO-Rec 在训练过程中 CTR 提升明显，最终三个随机种子的平均 CTR 达到 0.8670；与 PPO-SB3 相比，PPO-Rec 在状态归一化、动作范围约束、策略分布设置和确定性评估部分进行了面向推荐任务的设计，使其可以更稳定地找到高反馈动作区域，不过 PPO-Rec 仍存在一定 seed 差异，说明 on-policy 方法在当前实验环境中仍可能受到初始策略、采样轨迹和优势估计波动的影响。
+PPO-Rec 在训练过程中 CTR 提升明显，最终三个随机种子的平均 CTR 达到 0.8670；与 PPO-SB3 相比，PPO-Rec 在状态归一化、动作范围约束、策略分布设置和确定性评估部分进行了面向推荐任务的处理，使其可以更稳定地找到高反馈动作区域，不过 PPO-Rec 仍存在一定 seed 差异，说明 on-policy 方法在当前实验环境中仍可能受到初始策略、采样轨迹和优势估计波动的影响。
 
-DDPG-Rec 的训练速度和 seed 间稳定性在当前实验中较为突出。其最终 CTR 为 0.8958，三个随机种子结果非常接近。由于 DDPG 使用经验回放重复利用历史样本，且采用确定性策略直接输出连续动作，所以在 VirtualTB-v0 这种短会话、当前点击反馈较明确的实验环境中有较高样本效率。但这一结果也需要谨慎解释：高 CTR 说明策略可以很好地适应当前固定模拟器，并不意味着该方法一定能直接迁移到真实线上实验环境。
+DDPG-Rec 的训练速度和 seed 间稳定性在当前实验中较为突出。其最终 CTR 为 0.8976，三个随机种子结果非常接近。由于 DDPG 使用经验回放重复利用历史样本，且采用确定性策略直接输出连续动作，所以在 VirtualTB-v0 这种短会话、当前点击反馈较明确的实验环境中有较高样本效率。但这一结果也需要谨慎解释：高 CTR 说明策略可以很好地适应当前固定模拟器，并不意味着该方法一定能直接迁移到真实线上实验环境。
 
 == 动作范数与策略行为分析
 
-动作范数用于辅助观察连续动作策略的输出幅度。@fig-action-norm-curve 展示了深度强化学习策略训练过程中的动作范数变化。可以看到，DDPG-SB3 的动作范数长期处于较高水平，但其 CTR 并不高，说明单纯输出更大幅度的动作并不等价于更好的推荐效果。DDPG-Rec 的动作范数同样较高，但其 CTR 和平均回报也更高，说明其不仅输出较大动作，而且更可能学习到了对当前虚拟实验环境有效的动作方向。
+动作范数用于辅助观察连续动作策略的输出幅度。@fig-action-norm-curve 展示了深度强化学习策略训练过程中的动作范数变化。可以看到，DDPG-SB3 的动作范数长期处于较高水平，但其 CTR 并不高，说明单纯输出更大幅度的动作并不等价于更好的推荐效果。DDPG-Rec 的动作范数低于 DDPG-SB3，但其 CTR 和平均回报明显更高，说明策略是否学习到有效动作方向比动作幅度本身更重要。
 
 #capfig(
   image("figures/final_rebuild/drl_action_norm_curves_mean_std.png", width: 85%),
@@ -887,7 +896,7 @@ PPO-Rec 的动作范数低于 DDPG-Rec，但最终 CTR 仍然远高于 PPO-SB3�
 
 == 学习速度与稳定性分析
 
-@fig-learning-speed 展示了不同深度强化学习方法达到若干 CTR 阈值所需的训练步数。PPO-SB3 和 DDPG-SB3 在多数随机种子下未达到 CTR 0.7，而 PPO-Rec 和 DDPG-Rec 均能达到较高阈值。PPO-Rec 达到 CTR 0.7 的步数大致位于 22 万至 34 万步之间；DDPG-Rec 达到 CTR 0.7 的步数大致位于 7 万至 19.5 万步之间，并且在三个随机种子中都能达到接近 0.9 的周期评估 CTR。
+@fig-learning-speed 展示了不同深度强化学习方法达到若干 CTR 阈值所需的训练步数。PPO-SB3 和 DDPG-SB3 在多数随机种子下未达到 CTR 0.7，而 PPO-Rec 和 DDPG-Rec 均能达到较高阈值。PPO-Rec 达到 CTR 0.7 的步数大致位于 22 万至 34 万步之间；DDPG-Rec 达到 CTR 0.7 的步数大致位于 10 万至 22.5 万步之间，并且在三个随机种子中都能达到接近 0.9 的周期评估 CTR。
 
 #capfig(
   image("figures/final_rebuild/learning_speed_thresholds.png", width: 80%),
@@ -911,9 +920,9 @@ PPO-Rec 的动作范数低于 DDPG-Rec，但最终 CTR 仍然远高于 PPO-SB3�
 
 首先，本文在原始 Virtual-Taobao 工作基础上建立了可运行的 VirtualTB-v0 强化学习实验环境。原始 Virtual-Taobao 工作基于真实匿名淘宝交互数据训练了用户生成、用户反馈和用户离开相关模型，本文没有重新训练这些模型，而是复用其发布的预训练权重，将其封装为符合 Gymnasium 规范的强化学习实验环境；通过该实验环境，推荐方法可以进行标准实验环境交互，并在统一状态空间、动作空间和回报定义下训练与评估。
 
-其次，本文设计了多层次对比方法。传统基线包括 Random、MLP-SL 和 LinUCB，分别代表无学习策略、离线监督学习策略和只改进当前反馈的上下文 Bandit 方法。深度强化学习部分，本文加入 PPO-SB3 和 DDPG-SB3 作为通用强化学习实现的比较，并继续面向连续动作推荐任务的状态尺度、连续动作空间和短会话反馈特点，设计了 PPO-Rec 和 DDPG-Rec 两种推荐强化学习方法。
+其次，本文设计了多层次对比方法。传统基线包括 Random、MLP-SL 和 LinUCB，分别代表无学习策略、离线监督学习策略和只改进当前反馈的上下文 Bandit 方法。深度强化学习部分，本文加入 PPO-SB3 和 DDPG-SB3 作为通用强化学习实现的比较，并继续面向连续动作推荐任务的状态尺度、连续动作空间和短会话反馈特点，构建了 PPO-Rec 和 DDPG-Rec 两种推荐任务训练配置与策略实现。
 
-最后，本文完成了多随机种子的实验评估，并从最终 CTR、平均累积回报、训练曲线、动作范数和稳定性等角度对实验结果进行分析。实验结果说明，在 VirtualTB-v0 固定模拟实验环境中，PPO-Rec 和 DDPG-Rec 的平均 CTR 均高于传统基线和标准 SB3 对照，其中 DDPG-Rec 在最终 CTR、seed 间稳定性和学习速度部分表现较为突出。
+最后，本文完成了多随机种子的实验评估，并从最终 CTR、平均累积回报、训练曲线、动作范数和稳定性等角度对实验结果进行分析。实验结果说明，在 VirtualTB-v0 固定模拟实验环境中，PPO-Rec 和 DDPG-Rec 的平均 CTR 均高于传统基线和标准 SB3 对照，其中 DDPG-Rec 在最终 CTR、seed 间稳定性和学习速度方面表现较为突出。
 
 
 
@@ -927,9 +936,9 @@ PPO-Rec 的动作范数低于 DDPG-Rec，但最终 CTR 仍然远高于 PPO-SB3�
 
 第三，通用深度强化学习实现可以在 VirtualTB-v0 中学习有效策略，但直接使用时效果并不充分。PPO-SB3 和 DDPG-SB3 的最终 CTR 均高于传统基线，说明强化学习交互训练有价值；但二者与 PPO-Rec、DDPG-Rec 相比存在明显差距，说明在当前连续动作推荐任务中，状态尺度处理、动作输出约束、训练稳定性设置和基于实验环境指标的策略选择都会影响最终结果。
 
-第四，面向推荐任务改进的强化学习方法在当前实验设置下取得了更高的平均 CTR。PPO-Rec 的最终 CTR 为 0.8670 ± 0.0529，DDPG-Rec 的最终 CTR 为 0.8958 ± 0.0064，均高于 SB3 对照和传统基线，其中，DDPG-Rec 训练 300k 步便取得最高最终 CTR，说明 off-policy 经验回放、确定性策略输出以及稳定训练设置在当前短会话连续动作实验环境中有较高样本效率。
+第四，面向推荐任务改进的强化学习方法在当前实验设置下取得了更高的平均 CTR。PPO-Rec 的最终 CTR 为 0.8670 ± 0.0529，DDPG-Rec 的最终 CTR 为 0.8976 ± 0.0032，均高于 SB3 对照和传统基线。结合训练曲线可以看到，DDPG-Rec 较早进入高 CTR 区间，说明 off-policy 经验回放、确定性策略输出以及稳定训练设置在当前短会话连续动作实验环境中有较高样本效率。
 
-第五，动作范数分析说明，高 CTR 并不能简单归因于动作幅度变大。DDPG-SB3 的动作范数较高但 CTR 不高，而 DDPG-Rec 在较高动作范数下同时获得较高 CTR 和回报，说明策略是否学习到有效动作方向比动作幅度本身更重要。动作范数可以作为连续动作策略行为分析的辅助指标，但不能单独作为推荐效果指标。
+第五，动作范数分析说明，高 CTR 并不能简单归因于动作幅度变大。DDPG-SB3 的动作范数较高但 CTR 不高，而 DDPG-Rec 在动作范数低于 DDPG-SB3 的情况下获得更高 CTR 和回报，说明策略是否学习到有效动作方向比动作幅度本身更重要。动作范数可以作为连续动作策略行为分析的辅助指标，但不能单独作为推荐效果指标。
 
 
 
